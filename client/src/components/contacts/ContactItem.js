@@ -1,25 +1,27 @@
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
-import ContactContext from "../../context/contact/contactContext";
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import ContactContext from '../../context/contact/contactContext';
 
 const ContactItem = ({ contact }) => {
   const contactContext = useContext(ContactContext);
-  const { id, name, email, phone, type, birthday } = contact;
-  const { deleteContact, clearCurrent, setCurrent } = contactContext;
+  const { deleteContact, setCurrent, clearCurrent } = contactContext;
+
+  const { _id, name, email, phone, type } = contact;
 
   const onDelete = () => {
-    deleteContact(id);
+    deleteContact(_id);
     clearCurrent();
   };
 
   return (
     <div className='card bg-light'>
       <h3 className='text-primary text-left'>
-        {name}{" "}
+        {name}{' '}
         <span
+          style={{ float: 'right' }}
           className={
-            "badge " +
-            (type === "professional" ? "badge-success" : "badge-primary")
+            'badge ' +
+            (type === 'professional' ? 'badge-success' : 'badge-primary')
           }
         >
           {type.charAt(0).toUpperCase() + type.slice(1)}
@@ -34,11 +36,6 @@ const ContactItem = ({ contact }) => {
         {phone && (
           <li>
             <i className='fas fa-phone' /> {phone}
-          </li>
-        )}
-        {birthday && (
-          <li>
-            <i className='fas fa-birthday-cake' /> {birthday}
           </li>
         )}
       </ul>
@@ -58,7 +55,7 @@ const ContactItem = ({ contact }) => {
 };
 
 ContactItem.propTypes = {
-  contact: PropTypes.object.isRequired,
+  contact: PropTypes.object.isRequired
 };
 
 export default ContactItem;
